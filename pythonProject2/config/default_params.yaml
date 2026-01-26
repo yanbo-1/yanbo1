@@ -1,0 +1,126 @@
+# config/default_params.yaml
+# 同心度检测系统 - 默认算法参数配置
+# 自动生成时间: 2026-01-25
+
+preprocess:
+  # 图像尺寸调整
+  resize_width: 800
+  resize_height: 600
+
+  # 自适应阈值
+  use_adaptive_threshold: true
+  adaptive_method: GAUSSIAN  # MEAN 或 GAUSSIAN
+  adaptive_block_size: 11
+  adaptive_c: 2
+
+  # 中值滤波
+  use_median_filter: true
+  median_kernel_size: 5
+
+  # 高斯滤波
+  use_gaussian_filter: true
+  gaussian_kernel_size: 5
+  gaussian_sigma: 1.0
+
+  # 形态学操作
+  use_morphology: true
+  morphology_operation: OPEN  # OPEN, CLOSE, ERODE, DILATE
+  morphology_kernel_size: 3
+  morphology_iterations: 1
+
+  # Retinex算法（反光抑制）
+  use_retinex: true
+  retinex_scales: 3
+  retinex_sigma: 15
+
+  # 直方图均衡化
+  use_histogram_equalization: true
+  clahe_clip_limit: 2.0
+  clahe_grid_size: 8
+
+circle_detection:
+  # 霍夫变换参数
+  use_hough_transform: true
+  hough_dp: 1
+  hough_min_dist: 50
+  hough_param1: 100
+  hough_param2: 30
+  hough_min_radius: 10
+  hough_max_radius: 200
+
+  # 最小二乘法拟合
+  use_least_squares: true
+  ls_min_points: 10
+  ls_max_iterations: 100
+  ls_tolerance: 0.001
+
+  # 边缘检测
+  edge_detection_method: CANNY  # CANNY, SOBEL, LAPLACIAN
+  canny_threshold1: 50
+  canny_threshold2: 150
+  canny_aperture_size: 3
+  canny_l2_gradient: false
+
+distortion_correction:
+  # 是否启用畸变矫正
+  enable_correction: true
+
+  # 相机内参矩阵（示例值，需通过标定获得）
+  camera_matrix:
+    fx: 1000.0
+    fy: 1000.0
+    cx: 400.0
+    cy: 300.0
+
+  # 畸变系数 [k1, k2, p1, p2, k3]
+  dist_coeffs: [0.1, -0.2, 0.001, 0.001, 0.1]
+
+  # 标定文件路径
+  calibration_file: data/calibration_images/calibration_data.npz
+
+  # 使用去畸变
+  use_undistort: true
+
+concentricity_calculation:
+  # 像素到毫米的转换比例（需根据实际标定设置）
+  pixel_to_mm_ratio: 0.1
+
+  # 基准圆半径（毫米）
+  reference_radius_mm: 25.0
+
+  # 容差阈值（毫米）
+  tolerance_threshold: 0.2
+
+  # 最大允许偏差（毫米）
+  max_allowed_deviation: 1.0
+
+  # 输出单位
+  unit: mm  # mm 或 pixel
+
+  # 输出格式
+  output_format: both  # both, pixel, mm
+
+  # 是否计算统计信息
+  calculate_statistics: true
+
+  # 统计窗口大小
+  statistics_window: 10
+
+system:
+  # 日志级别
+  log_level: INFO  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+
+  # 是否保存中间结果
+  save_intermediate_results: false
+
+  # 自动保存间隔（秒）
+  auto_save_interval: 60
+
+  # 最大历史记录大小
+  max_history_size: 100
+
+  # 默认图像格式
+  default_image_format: png  # png, jpg, bmp, tiff
+
+  # 默认报告格式
+  default_report_format: excel  # excel, pdf, csv
